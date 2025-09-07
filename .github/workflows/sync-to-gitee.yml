@@ -1,0 +1,44 @@
+name: Sync to Gitee
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+
+    - name: Add Gitee remote
+      run: |
+        git remote add gitee https://gitee.com/OwLyee/buddypr.git
+        git remote -v
+
+    - name: Push to Gitee
+      env:
+        GITEE_USERNAME: ${{ secrets.GITEE_USERNAME }}
+        GITEE_PASSWORD: ${{ secrets.GITEE_PASSWORD }}
+      run: |
+        # 使用HTTPS方式推送
+        git push https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_PASSWORD }}@gitee.com/OwLyee/buddypr.git master:master
+        
+        # 或者使用SSH方式（需要配置SSH密钥）
+        # git push git@gitee.com:OwLyee/buddypr.git master:master
+
+    - name: Notify success
+      if: success()
+      run: echo "Sync to Gitee completed successfully!"
+
+    - name: Notify failure
+      if: failure()
+      run: echo "Sync to Gitee failed! Check the logs for details."
