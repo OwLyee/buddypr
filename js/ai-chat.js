@@ -34,6 +34,7 @@ class AIChatSidebar {
             </div>
             <button class="ai-chat-trigger">
                 <i class="fas fa-comment-dots"></i>
+                <span class="chat-tooltip">点击聊天</span>
             </button>
         `;
 
