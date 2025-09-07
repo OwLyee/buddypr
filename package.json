@@ -1,0 +1,22 @@
+{
+  "name": "zcst-website",
+  "version": "1.0.0",
+  "description": "珠海科技学院学校简介静态网站",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "deploy": "node deploy.js",
+    "build": "echo '静态网站无需构建'",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "university",
+    "static-site",
+    "education"
+  ],
+  "author": "CodeBuddy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
